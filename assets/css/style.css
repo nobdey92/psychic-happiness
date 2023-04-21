@@ -1,0 +1,21 @@
+
+#toDosList{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 1em;
+    background-color: white;
+}
+
+.toDoCard{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1em;
+    background-color: #fffee9;
+    border: 1px solid gray;
+}
+
+.completed{
+    background-color: lightgreen;
+}
