@@ -24,6 +24,15 @@ let toDos = [
 ]
 
 // Function Definitions
+const renderToDoList = () => {
+    const toDosList = document.querySelector('#toDosList')
+
+    toDosList.innerHTML = ''
+
+    toDos.forEach((toDo) => {
+        toDosList.appendChild(toDoCardElement(toDo))
+    })
+}
 const addToDo = (toDoText = '') => {
     const newTodo = {
         text: toDoText,
@@ -34,6 +43,7 @@ const addToDo = (toDoText = '') => {
 
 const clearToDos = () => {
     toDos = []
+    renderToDoList()
 }
 
 const toDoCardElement = (toDo) => {
@@ -52,6 +62,10 @@ const toDoCardElement = (toDo) => {
     }
     cardButton.classList.add('toDoCardDeleteButton')
 
+    cardButton.addEventListener('click', () => {
+        handleDelete(toDo)
+    })
+
     // setting the internal text of the element
     cardText.textContent = toDo.text
     cardButton.textContent = 'Delete'
@@ -66,16 +80,6 @@ const toDoCardElement = (toDo) => {
     return card
 }
 
-const renderToDoList = () => {
-    const toDosList = document.querySelector('#toDosList')
-
-    toDosList.innerHTML = ''
-
-    toDos.forEach((toDo) => {
-        toDosList.appendChild(toDoCardElement(toDo))
-    })
-}
-
 const handleSubmit = (event) => {
     event.preventDefault()
 
@@ -85,15 +89,17 @@ const handleSubmit = (event) => {
     renderToDoList()
 }
 
-const handleDelete = () => {
+const handleDelete = (toDo) => {
     // delete the todo
+    toDos = toDos.filter((currentToDo) => currentToDo.text != toDo.text)
+    renderToDoList()
 }
 const handleComplete = () => {
-    // delete the todo
+    // complete the todo
 }
 
 // Functional Code
-addTodoForm.addEventListener('submit', handleSubmit)
-
+addTodoForm.addEventListener('submit', handleSubmit())
+clearTodosButton.addEventListener('click', clearToDos)
 // add load event
 window.addEventListener('load', renderToDoList)
